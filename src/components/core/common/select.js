@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { Select } from 'antd';
 
 const Option = Select.Option;
@@ -23,21 +23,52 @@ const Option = Select.Option;
 //     {children}
 //   </Select>,
 //   mountNode);
-
+// export default class SelectDropDown extends Component{
+//   constructor(){
+//     super();
+//     this.state ={
+//       value :""
+//     }
+//   }
+//   render(){
+//     const {option,placeholder,defaultValue,mode} = this.props;
+//     const children = [];
+//     for (let i = 0; i < option.length; i++) {
+//       children.push(<Option key={i}>{option[i]}</Option>);
+//     }
+//     return(
+//       <div>
+//            <Select
+//     mode={mode}
+//     style={{ width: '100%' }}
+//     placeholder={placeholder}
+//     defaultValue={defaultValue}
+//     onChange={(e)=>this.props.handleChange(children,option[e])}
+//     // value = {props.selectedOption}
+//   >
+//     {children}
+//   </Select>
+//           </div>
+//     )
+//   }
+// }
 
   export const SelectDropDown = (props) =>{
-      const children = [];
-for (let i = 0; i < props.option.length; i++) {
-  children.push(<Option key={i}>{props.option[i]}</Option>);
-}
+    //console.log(props.value);
+    const {option,placeholder,defaultValue,mode} = props;
+    const children = [];
+    for (let i = 0; i < option.length; i++) {
+      children.push(<Option key={i}>{option[i]}</Option>);
+    }
       return(<div>
-           <Select
-    mode={props.mode}
-    style={{ width: '100%' }}
-    placeholder={props.placeholder}
-    defaultValue={props.defaultValue}
-    onChange={props.handleChange}
-  >
+            <Select
+     mode={mode}
+     style={{ width: '100%' }}
+     placeholder={placeholder}
+     defaultValue={defaultValue}
+     onChange={(e)=>props.handleChange(children,option[e],e)}
+     value = {props.value}
+   >
     {children}
   </Select>
           </div>)
