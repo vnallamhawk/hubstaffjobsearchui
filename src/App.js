@@ -3,10 +3,11 @@ import logo from './logo.svg';
 import {Navigation} from './components/core/common/navigation';
 import Home from './components/core/main/home';
 import './App.css';
+import {Layout} from 'antd'
 
 class App extends Component {
   render() {
-    return (<div>
+    return (<div className="container">
         <Navigation/>
         <Home/>
           </div>)

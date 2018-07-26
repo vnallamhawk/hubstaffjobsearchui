@@ -10,28 +10,29 @@ import Button from '../common/button';
 import { queryParams } from '../common/global'
 import SliderC from '../common/Slider'
 import { connect } from 'react-redux'
+import Cards from '../cards/cards.js'
 
 class Home extends Component {
   constructor() {
     super();
     this.state={
       filterParams :{
-        "keyword":"",
+        "keywords":"",
         "skills" : [],
         "availability" : [],
         "jobType" : "",
-        "payRate" : {"initial":  40, "final" : 80},
+        "payRate" : [40, 80],
         "experienceLevel" : "",
-        "countries" : [],
+        "country" : [],
         "languages" : []
       }
       //keyword : "",
     }
-    this.filterParams = { "keyword": "" };
+    //this.filterParams = { "keyword": "" };
   }
 
   componentDidMount() {
-    // this.props.fetchJobs("");
+    // this.props.fetchJobs("");  
   }
 
   btnSearch = () => {
@@ -60,7 +61,7 @@ class Home extends Component {
   }
   handleChangeCountries = (event,value,tagsValue) => {
     const filterParams = Object.assign({},this.state.filterParams);
-    filterParams["countries"] = tagsValue;
+    filterParams["country"] = tagsValue;
     //console.log(filterParams);
     this.setState({filterParams})
   }
@@ -84,21 +85,46 @@ class Home extends Component {
     this.setState({filterParams})
   }
 
+  onInputChange=(index,value) =>{
+    const filterParams = Object.assign({},this.state.filterParams);
+    filterParams["payRate"][index] = value;
+    this.setState({filterParams});
+  }
+
+  onAfterChange=(input)=> {
+    const filterParams = Object.assign({},this.state.filterParams);
+    filterParams["payRate"] = input;
+    this.setState({filterParams});
+    // let inputValue = [...this.state.inputValue];
+    // inputValue = input;
+    // this.setState({inputValue});
+    //console.log('onAfterChange: ', value);
+  }
+
   handleMenuClick = () => {
 
   }
   render() {
     const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
     const experienceOption = ["Junior","Mid","Senior"]
-    const {skills,jobType,experienceLevel,languages,countries} = this.state.filterParams;
+    const {jobs} = this.props;
+    const {skills,jobType,experienceLevel,languages,country,payRate} = this.state.filterParams;
+    let cardList = [];
+    if(jobs.length>0){
+      for(let i=0;i<jobs.length;i++){
+        cardList.push(<div> <Cards jobs={jobs[i]}/> </div>)
+      }
+    }
     console.log(this.state.filterParams["skills"]);
     console.log(this.state.filterParams["jobType"]);
     console.log(this.state.filterParams["experienceLevel"])
-
+    console.log(jobs.length);
     return (
       <div>
+        <div>
         <Search name="keyword" onChange={this.onChange} placeHolder="Search by keywords(PHP,.NET,graphic design,etc.)" />
         <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
+        </div>
         <Row>
           <Col span={7}>
             <Row>
@@ -118,7 +144,7 @@ class Home extends Component {
             </Row>
             <Row>
               Pay rate/hr($)
-                        <SliderC step={5} min={0} max={100} defaultValues={[18,32]}/>
+                        <SliderC step={5} min={0} max={100} value={payRate} onInputChange={this.onInputChange} onAfterChange={this.onAfterChange}/>
             </Row>
             <Row>
               Experience Level
@@ -127,7 +153,7 @@ class Home extends Component {
             </Row>
             <Row>
               Countries
-                <SelectDropDown value={countries} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
+                <SelectDropDown value={country} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
             </Row>
             <Row>
               Languages
@@ -135,12 +161,21 @@ class Home extends Component {
             </Row>
           </Col>
 
-          <Col span={10}>col-4</Col>
-          <Col span={7}>col-4</Col>
+          
+          <Col span={10}>
+          {cardList}
+          </Col>
+          <Col span={7}></Col>
         </Row>
       </div>
 
     );
+  }
+}
+
+const mapStateToProps = (state) =>{
+  return{
+    jobs : state.jobs
   }
 }
 
@@ -150,4 +185,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

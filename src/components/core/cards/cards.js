@@ -1,20 +1,33 @@
 import React from 'react';
 import Skill from './skill';
+import List from './list';
 
 const cards = (props) => {
-    let skills = [];
-    for(let i= 0;i<props.skills.length;i++){
-        skills.push(<Skill val={props.skills[i]}/>)
-    }
+    // let skills = [];
+    // console.log(props);
+    // debugger;
+    // let skills = props.skills.map((skill) => {
+    //     <Skill skill={skill}/>
+    // })
+    // for(let i= 0;i<props.skills.length;i++){
+    //     skills.push(<Skill val={props.skills[i]}/>)
+    // }
     return(
         <div>
-            {props.rolename} {props.type.join()}
+        <div>
+            {props.jobs.rolename} {props.jobs.type.join()}
         </div>
         <div>
-            {props.description}
+            {props.jobs.company} {props.jobs.city} {props.jobs.state}
         </div>
         <div>
-            {skills}
+            {props.jobs.description}
+        </div>
+        <div>
+            <List skills={props.jobs.skills}/>
+        </div>
         </div>
     );
 }
+
+export default cards;

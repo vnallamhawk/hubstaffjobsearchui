@@ -1,5 +1,4 @@
 export function queryParams(map){
-    debugger;
     let finalString = "",value="";
     for(let key in map){
         value = Array.isArray(map[key])?map[key].join():map[key]

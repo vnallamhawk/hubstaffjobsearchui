@@ -4,27 +4,34 @@ import { Slider, InputNumber, Row, Col } from 'antd';
 export default class SliderC extends Component {
   constructor(props){
     super(props);
-    this.state={
-      inputValue: props.defaultValues,
-    }
+    // this.state={
+    //   inputValue: props.value,
+    // }
+    this.onInputChange = this.onInputChange.bind(this);
   }
+
+  componentWillReceiveProps(nextProps){
+    console.log(JSON.stringify(this.props.value)===JSON.stringify(nextProps.value));
+    }
 
   onChange = (value) => {
     //console.log("inside onchange");
     //console.log(value);
-    this.setState({
-      inputValue: [value],
-    });
+    // this.setState({
+    //   inputValue: [value]
+    // });
   }
 
   onAfterChange=(input)=> {
-    let inputValue = [...this.state.inputValue];
-    inputValue = input;
-    this.setState({inputValue});
+    // let inputValue = [...this.state.inputValue];
+    // inputValue = input;
+    // this.setState({inputValue});
     //console.log('onAfterChange: ', value);
   }
 
-  onInputChange = (input) =>{
+  onInputChange (value,index){
+    debugger;
+    this.props.onInputChange(index,value);
     // let inputValue = [...this.state.inputValue];
     // inputValue = input;
     // this.setState({inputValue});
@@ -33,8 +40,10 @@ export default class SliderC extends Component {
   
 
   render() {
-    const { disabled,inputValue } = this.state;
-    const {min,max,step} = this.props;
+    
+    //const { inputValue } = this.state;
+    const {min,max,step,value} = this.props;
+    console.log(value);
     //console.log(inputValue[0]);
     //console.log(inputValue[1]);
     return (
@@ -45,19 +54,19 @@ export default class SliderC extends Component {
               min={min}
               max={max}
               style={{ marginLeft: 16 }}
-              value={this.state.inputValue[0]}
-              onChange={this.onInputChange}
+              value={value[0]}
+              onChange={(e)=>this.onInputChange(e,0)}
             />-
               <InputNumber
               min={min}
               max={max}
               style={{ marginLeft: 16 }}
-              value={this.state.inputValue[1]}
-              onChange={this.onInputChange}
+              value={value[1]}
+              onChange={(e)=>this.onInputChange(e,1)}
             />
           </Col>
           <Col span={20}>
-          <Slider range step={step} min={min} max={max} defaultValue={inputValue} onChange={this.onChange} onAfterChange={this.onAfterChange} />
+          <Slider range step={step} value={value} min={min} max={max} onChange={this.props.onAfterChange} onAfterChange={this.props.onAfterChange} />
 
           {/* <Slider range defaultValue={[20, 50]} disabled={disabled} min={1} max={40} onChange={this.onChange} value={this.state.inputValue}/> */}
             {/* <Slider range defaultValue={[18, 32]} min={1} max={40} onChange={this.onChange} value={this.state.inputValue} /> */}
