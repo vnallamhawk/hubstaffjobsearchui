@@ -7,9 +7,11 @@ import {Layout} from 'antd'
 
 class App extends Component {
   render() {
-    return (<div className="container">
+    return (<div>
         <Navigation/>
+        <div className="container">
         <Home/>
+          </div>
           </div>)
 
       // <div className="App">

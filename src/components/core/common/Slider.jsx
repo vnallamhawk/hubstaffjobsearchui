@@ -10,9 +10,9 @@ export default class SliderC extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log(JSON.stringify(this.props.value)===JSON.stringify(nextProps.value));
-    }
+  // componentWillReceiveProps(nextProps){
+  //   console.log(JSON.stringify(this.props.value)===JSON.stringify(nextProps.value));
+  //   }
 
   onChange = (value) => {
     //console.log("inside onchange");
@@ -56,7 +56,8 @@ export default class SliderC extends Component {
               style={{ marginLeft: 16 }}
               value={value[0]}
               onChange={(e)=>this.onInputChange(e,0)}
-            />-
+            />
+            <div className="hyphen"> - </div>
               <InputNumber
               min={min}
               max={max}
@@ -66,7 +67,7 @@ export default class SliderC extends Component {
             />
           </Col>
           <Col span={20}>
-          <Slider range step={step} value={value} min={min} max={max} onChange={this.props.onAfterChange} onAfterChange={this.props.onAfterChange} />
+          <Slider className="antSlider" range step={step} value={value} min={min} max={max} onChange={this.props.onAfterChange} onAfterChange={this.props.onAfterChange} />
 
           {/* <Slider range defaultValue={[20, 50]} disabled={disabled} min={1} max={40} onChange={this.onChange} value={this.state.inputValue}/> */}
             {/* <Slider range defaultValue={[18, 32]} min={1} max={40} onChange={this.onChange} value={this.state.inputValue} /> */}

@@ -45,6 +45,7 @@ body{
   border-bottom: 1px solid #F2F2F2;
   padding: 35px 0 35px 0;
   height:0px;
+  background:white;
  }
  .logo {
   margin-top: -1.6em;
@@ -58,7 +59,7 @@ body{
  }
  header ul li {
   display: inline-block;
-  padding: 0 1.4em 0 0;
+  padding: 1em 1.4em 0 0;
   font-size: 1.3em;
   /* line-height: 2px; */
  }
@@ -109,4 +110,53 @@ body{
   border: 0;
   font-size:20px;
 
+}
+
+.filters{
+  width: 77%;
+  float: left;
+}
+/* 
+.filterSection{
+  padding-top:2em;  
+} */
+
+.clear{
+  color:grey;
+}
+
+.ant-row{
+  padding-top:1.3em;
+}
+
+.sectionText{
+  font-weight:bold;
+  padding-bottom:0.5em;
+}
+
+.ant-input-number{
+  margin-left:0 !important;
+  width:44px;
+  float:left;
+}
+
+.hyphen{
+  margin-top:4px;
+  float:left;
+}
+
+.antSlider .ant-slider-rail{
+  background:lightgrey !important;
+}
+
+.antSlider .ant-slider-track{
+  background:#56D48F;
+}
+
+.antSlider .ant-slider-handle{
+  border: solid 1px lightgray;  
+}
+
+.searchSection{
+  padding-top:1em;
 }
