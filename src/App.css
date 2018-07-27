@@ -113,7 +113,7 @@ body{
 }
 
 .filters{
-  width: 73%;
+  width: 64%;
   float: left;
 }
 /* 
@@ -203,3 +203,43 @@ body{
 .section1{
   padding: 0 25px 0 25px;
 }
+
+.companyIcon {
+  /* background: url('images/company.png'); */
+  height: 16px;
+  width: 16px;
+  display: block;
+  /* Other styles here */
+}
+
+.locationIcon {
+  /* background: url('images/location.png'); */
+  height: 16px;
+  width: 16px;
+  display: block;
+  /* Other styles here */
+}
+
+.centerAlign{
+  text-align:center;
+}
+
+.padding-30{
+   padding: 30px;
+}
+
+.signUp{border-radius: 4px;
+background: #559EFD;
+width: 56%;
+height: 45px;
+color: white;
+border: 0;
+font-size: 20px;
+}
+
+.padding-25{
+  padding:0 25px;}    
+
+.clearBoth img{
+  height: 20px;
+}  

@@ -124,12 +124,18 @@ class Home extends Component {
     const { jobs } = this.props;
     const {currentPage,pageSize,total} = this.state;
     const { skills, jobType, experienceLevel, languages, country, payRate } = this.state.filterParams;
-    let cardList = [];
+    let cardList = [],topJobs=[],mostViewed=[];
     debugger;
     let upperLimit = currentPage*pageSize <jobs.length? currentPage*pageSize : jobs.length;
     if (jobs.length > 0) {
       for (let i = currentPage*pageSize -pageSize; i < upperLimit; i++) {
-        cardList.push(<div> <Cards jobs={jobs[i]} /> <hr/> </div>)
+        cardList.push(<div> <Cards jobs={jobs[i]} hide={false}/> <hr/> </div>)
+      }
+      for(let i=0;i<2;i++){
+        topJobs.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
+      }
+      for(let i=0;i<2;i++){
+        mostViewed.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
       }
     }
     console.log(this.state.filterParams["skills"]);
@@ -219,7 +225,42 @@ class Home extends Component {
             </div> 
            }
           </Col>
-          <Col span={6}></Col>
+          <Col span={6} className="padding-25">
+           <div className="whiteBg centerAlign padding-30">
+              <img src="images/hubStaff.PNG"/>
+              <div className="sectionText"> 
+                TRACK TIME ON HUBSTAFF
+                </div>
+                <p> 
+                 Pay only for the hours worked
+                </p>
+                <Button className="signUp" type="submit" btnSearchTxt="SignUp" />
+                <p>
+                  <a>
+                    Learn more...
+                    </a>
+                  </p>
+                
+           </div>
+           <Row>
+           <div className="sectionText"> 
+           TOP JOBS
+           </div>
+           <hr/>
+           {topJobs}
+
+             </Row>
+
+              <Row>
+           <div className="sectionText"> 
+           MOST VIEWED THIS WEEK
+           </div>
+           <hr/>
+           {mostViewed}
+
+             </Row>
+
+          </Col>
         </Row>
       </div>
 

@@ -4,7 +4,7 @@ import List from './list';
 import Type from './type';
 import {Icon} from 'antd'
 
-const cards = (props) => {
+const cards = ({jobs,hide}) => {
     // let skills = [];
     // console.log(props);
     // debugger;
@@ -17,20 +17,27 @@ const cards = (props) => {
     return(
         <div>
         <div className="sectionText floatLeft">
-            {props.jobs.rolename} 
+            {jobs.rolename} 
         </div>
-        <div className="padding-left-10">
-            <Type jobType={props.jobs.type.join()}/>
-        </div>
-        <div className="clearBoth">
-            <span className="companyIcon"/> {props.jobs.company}  <span className="locationIcon"/> {props.jobs.city} {props.jobs.state}
-        </div>
+        {!hide&&
         <div>
-            {props.jobs.description}
+        <div className="padding-left-10">
+            <Type jobType={jobs.type.join()}/>
         </div>
+        
+        <div className="clearBoth">
+            <img src="images/company.png"/> {jobs.company}  <img src="images/location.png"/>{jobs.city} {jobs.state}
+        </div>
+        </div>
+        }
+        <div className="clearBoth">
+            {jobs.description}
+        </div>
+        {!hide&&
         <div className="skills">
-            <List className="skills" skills={props.jobs.skills}/>
+            <List className="skills" skills={jobs.skills}/>
         </div>
+        }
         </div>
     );
 }

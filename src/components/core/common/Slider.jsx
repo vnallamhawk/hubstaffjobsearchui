@@ -49,7 +49,7 @@ export default class SliderC extends Component {
     return (
       <div>
         <Row>
-        <Col span={6}>
+        <Col span={24}>
             <InputNumber
               min={min}
               max={max}
@@ -66,7 +66,7 @@ export default class SliderC extends Component {
               onChange={(e)=>this.onInputChange(e,1)}
             />
           </Col>
-          <Col span={20}>
+          <Col span={24}>
           <Slider className="antSlider" range step={step} value={value} min={min} max={max} onChange={this.props.onAfterChange} onAfterChange={this.props.onAfterChange} />
 
           {/* <Slider range defaultValue={[20, 50]} disabled={disabled} min={1} max={40} onChange={this.onChange} value={this.state.inputValue}/> */}
