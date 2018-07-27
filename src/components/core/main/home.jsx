@@ -11,9 +11,10 @@ import { queryParams } from '../common/global'
 import SliderC from '../common/Slider'
 import { connect } from 'react-redux'
 import Cards from '../cards/cards.js'
+import Pagination from '../common/pagination'
 
 class Home extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       filterParams: {
@@ -25,10 +26,18 @@ class Home extends Component {
         "experienceLevel": "",
         "country": [],
         "languages": []
-      }
+      },
+      currentPage: 1,
+      pageSize : 5,
+      total : props.jobs.length
       //keyword : "",
     }
     //this.filterParams = { "keyword": "" };
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.jobs!==nextProps.jobs)
+    this.setState({total: nextProps.jobs.length})
   }
 
   componentDidMount() {
@@ -38,6 +47,7 @@ class Home extends Component {
   btnSearch = () => {
     console.log(queryParams(this.state.filterParams));
     this.props.fetchJobs(queryParams(this.state.filterParams));
+    this.setState({currentPage:1});
   }
 
   onChange = (event) => {
@@ -50,6 +60,10 @@ class Home extends Component {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["availability"] = value;
     this.setState({ filterParams });
+  }
+
+  updateCurrentPage=(currentPage)=>{
+    this.setState({currentPage});
   }
 
   handleChange = (event, value, tagsValue) => {
@@ -108,11 +122,14 @@ class Home extends Component {
     const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
     const experienceOption = ["Junior", "Mid", "Senior"]
     const { jobs } = this.props;
+    const {currentPage,pageSize,total} = this.state;
     const { skills, jobType, experienceLevel, languages, country, payRate } = this.state.filterParams;
     let cardList = [];
+    debugger;
+    let upperLimit = currentPage*pageSize <jobs.length? currentPage*pageSize : jobs.length;
     if (jobs.length > 0) {
-      for (let i = 0; i < jobs.length; i++) {
-        cardList.push(<div> <Cards jobs={jobs[i]} /> </div>)
+      for (let i = currentPage*pageSize -pageSize; i < upperLimit; i++) {
+        cardList.push(<div> <Cards jobs={jobs[i]} /> <hr/> </div>)
       }
     }
     console.log(this.state.filterParams["skills"]);
@@ -126,7 +143,7 @@ class Home extends Component {
           <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
         </div>
         <Row>
-          <Col span={6}>
+          <Col className="section1" span={6}>
             <Row>
             <div className="filters">
               FILTERS
@@ -187,8 +204,20 @@ class Home extends Component {
           </Col>
 
 
-          <Col span={12}>
+          <Col className="whiteBg" span={12}>
+           {jobs.length>0 && 
+            <div className="cardsSection ">
+            <Row>
+              <div className="sectionText">
+              RESULTS ({jobs.length}) 
+              </div>
+              </Row>
+              <Row>
             {cardList}
+            </Row>
+            < Pagination onChangePage={this.updateCurrentPage} currentPage={currentPage} pageSize={pageSize} total={total}/>
+            </div> 
+           }
           </Col>
           <Col span={6}></Col>
         </Row>

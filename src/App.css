@@ -113,7 +113,7 @@ body{
 }
 
 .filters{
-  width: 77%;
+  width: 73%;
   float: left;
 }
 /* 
@@ -159,4 +159,47 @@ body{
 
 .searchSection{
   padding-top:1em;
+}
+
+.cardsSection{
+  padding-left: 30px;
+}
+
+.floatLeft{
+  float: left;
+}
+
+.clearBoth{
+  clear:both;
+}
+
+.padding-left-10{
+  padding-left:10px;
+}
+
+
+.skills{
+  padding-top: 1em;
+}
+
+.skills>ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+.skills>ul>li{
+  display:inline;
+  margin-right:10px;
+  padding:9px;
+  border: 0.4px solid lightgrey;
+  display: inline;
+  border-radius: 7px
+}
+
+.whiteBg{
+  background:white;
+}
+
+.section1{
+  padding: 0 25px 0 25px;
 }

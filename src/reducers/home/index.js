@@ -4,6 +4,7 @@ function fetchJobsReducer(state=[],action){
     //console.log(action);
     switch(action.type){
         case FETCH_JOBS_FULFILLED:
+            state = [];
             return [...state,...action.payload.data];
     }
     return state;

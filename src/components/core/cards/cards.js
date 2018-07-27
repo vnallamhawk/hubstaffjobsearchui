@@ -1,6 +1,8 @@
 import React from 'react';
 import Skill from './skill';
 import List from './list';
+import Type from './type';
+import {Icon} from 'antd'
 
 const cards = (props) => {
     // let skills = [];
@@ -14,17 +16,20 @@ const cards = (props) => {
     // }
     return(
         <div>
-        <div>
-            {props.jobs.rolename} {props.jobs.type.join()}
+        <div className="sectionText floatLeft">
+            {props.jobs.rolename} 
         </div>
-        <div>
-            {props.jobs.company} {props.jobs.city} {props.jobs.state}
+        <div className="padding-left-10">
+            <Type jobType={props.jobs.type.join()}/>
+        </div>
+        <div className="clearBoth">
+            <span className="companyIcon"/> {props.jobs.company}  <span className="locationIcon"/> {props.jobs.city} {props.jobs.state}
         </div>
         <div>
             {props.jobs.description}
         </div>
-        <div>
-            <List skills={props.jobs.skills}/>
+        <div className="skills">
+            <List className="skills" skills={props.jobs.skills}/>
         </div>
         </div>
     );
