@@ -195,7 +195,7 @@ class Home extends Component {
               <div className="sectionText">
               Pay rate/hr($)
               </div>
-                        <SliderC step={5} min={0} max={100} value={payRate} onInputChange={this.onInputChange} onAfterChange={this.onAfterChange} />
+                        <SliderC step={5} min={0} max={100} value={payRate} onchange={this.onInputChange} />
             </Row>
             <Row>
               <div className="sectionText">
