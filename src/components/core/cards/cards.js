@@ -14,8 +14,7 @@ const cards = ({jobs,hide}) => {
     // for(let i= 0;i<props.skills.length;i++){
     //     skills.push(<Skill val={props.skills[i]}/>)
     // }
-    return(
-        <div>
+    return(<div>
         <div className="sectionText floatLeft">
             {jobs.rolename} 
         </div>

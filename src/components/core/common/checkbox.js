@@ -12,23 +12,35 @@ import { Checkbox } from 'antd';
 export default class Chkbox extends Component{
     constructor(){
         super();
-        this.selected = [];
+        this.state={
+            selected : []
+        }
     }
-    onChange = (selected,event)=>{
+    onChange = (selectedVal,event)=>{
+        debugger;
+        const selected = [...this.state.selected];
         if(event.target.checked===true)
-        this.selected.push(selected)
+        {
+        if(selected.indexOf(selectedVal)==-1)  
+        {  
+        selected.push(selectedVal)
+        }
+        }
         else
         {
-            let index = this.selected.indexOf(selected);
-            this.selected.splice(index,1)
+            let index = selected.indexOf(selectedVal);
+            selected.splice(index,1)
         }
-        this.props.onChange(this.selected);
+        this.setState({selected}, function(){
+            this.props.onChange(selected)
+        })
     }
+    
     render(){
-        const {option} = this.props;
+        const {option,value} = this.props;
         return option.map(opt=>
             <div>
-                <Checkbox onChange={(e)=>this.onChange(opt,e)}>{opt}</Checkbox>
+                <Checkbox value={value} onChange={(e)=>this.onChange(opt,e)}>{opt}</Checkbox>
             </div>)
         // return(
         //     <div>

@@ -22,7 +22,7 @@ class Home extends Component {
         "skills": [],
         "availability": [],
         "jobType": "",
-        "payRate": [40, 80],
+        "payRate": [0, 40],
         "experienceLevel": "",
         "country": [],
         "languages": []
@@ -115,6 +115,19 @@ class Home extends Component {
     //console.log('onAfterChange: ', value);
   }
 
+  clearAllFilters=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["keywords"]= "";
+    filterParams["skills"]= [];
+    filterParams["availability"]= [];
+    filterParams["jobType"]= "";
+    filterParams["payRate"]= [0, 40];
+    filterParams["experienceLevel"]= "";
+    filterParams["country"]=[];
+    filterParams["languages"]= [];
+    this.setState({filterParams});
+  }
+
   handleMenuClick = () => {
 
   }
@@ -123,25 +136,21 @@ class Home extends Component {
     const experienceOption = ["Junior", "Mid", "Senior"]
     const { jobs } = this.props;
     const {currentPage,pageSize,total} = this.state;
-    const { skills, jobType, experienceLevel, languages, country, payRate } = this.state.filterParams;
+    const { skills, jobType, experienceLevel, languages, country, payRate,availability } = this.state.filterParams;
     let cardList = [],topJobs=[],mostViewed=[];
-    debugger;
+    console.log(availability);
     let upperLimit = currentPage*pageSize <jobs.length? currentPage*pageSize : jobs.length;
     if (jobs.length > 0) {
       for (let i = currentPage*pageSize -pageSize; i < upperLimit; i++) {
         cardList.push(<div> <Cards jobs={jobs[i]} hide={false}/> <hr/> </div>)
       }
-      for(let i=0;i<2;i++){
-        topJobs.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
-      }
-      for(let i=0;i<2;i++){
-        mostViewed.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
-      }
+      // for(let i=0;i<2;i++){
+      //   topJobs.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
+      // }
+      // for(let i=0;i<2;i++){
+      //   mostViewed.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
+      // }
     }
-    console.log(this.state.filterParams["skills"]);
-    console.log(this.state.filterParams["jobType"]);
-    console.log(this.state.filterParams["experienceLevel"])
-    console.log(jobs.length);
     return (
         <div>
           <div className="searchSection">
@@ -155,7 +164,7 @@ class Home extends Component {
               FILTERS
         </div>
         <div>
-              <a className="clear">Clear all filters </a>
+              <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
           </div>
         
      
@@ -172,7 +181,7 @@ class Home extends Component {
               <div className="sectionText">
               Availability
               </div>
-                  <Chkbox onChange={this.onChkBoxChange} option={options} />
+                  <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
             </Row>
             <Row>
               <div className="sectionText">
@@ -242,7 +251,7 @@ class Home extends Component {
                   </p>
                 
            </div>
-           <Row>
+           {/* <Row>
            <div className="sectionText"> 
            TOP JOBS
            </div>
@@ -258,7 +267,7 @@ class Home extends Component {
            <hr/>
            {mostViewed}
 
-             </Row>
+             </Row> */}
 
           </Col>
         </Row>

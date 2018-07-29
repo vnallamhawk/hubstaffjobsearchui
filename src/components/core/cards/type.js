@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Type = ({jobType}) =>{
-   console.log("inside");
             switch (true) {
                 case jobType==='Full-Time':
                     return <div className="fullTime" >{jobType} </div> 
@@ -13,7 +12,7 @@ const Type = ({jobType}) =>{
                     return <div className="hourly" >{jobType} </div> 
                     break
                 default:
-                    break;
+                    return null
             }
 }
 
