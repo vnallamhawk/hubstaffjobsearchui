@@ -5,9 +5,9 @@ export default class SliderC extends Component {
   constructor(props){
     super(props);
     this.state={
-      inputValue: props.value,
+      inputValue: props.value
     }
-    this.onInputChange = this.onInputChange.bind(this);
+    //this.onInputChange = this.onInputChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -19,22 +19,26 @@ export default class SliderC extends Component {
 
   onChange = (value) => {
     let inputValue = [...this.state.inputValue];
-    inputValue = input;
+    inputValue = value;
     this.setState({inputValue},function(){
-      this.props.on
+       this.props.onChange(inputValue); 
     });
   }
 
-  onInputChange (value,index){
-    this.props.onInputChange(index,value);
+  onInputChange =(value,index)=>{
+    let inputValue = [...this.state.inputValue];
+    inputValue[index] = value
+     this.setState({inputValue},function(){
+
+      this.props.onChange(inputValue); 
+     })
   }
   
 
   render() {
-    
     const { inputValue } = this.state;
     const {min,max,step,value} = this.props;
-    console.log(value);
+    console.log(inputValue);
     //console.log(inputValue[0]);
     //console.log(inputValue[1]);
     return (
@@ -58,10 +62,7 @@ export default class SliderC extends Component {
             />
           </Col>
           <Col span={24}>
-          <Slider className="antSlider" range step={step} value={inputValue} min={min} max={max} onChange={this.onChange} onAfterChange={this.onChange} />
-
-          {/* <Slider range defaultValue={[20, 50]} disabled={disabled} min={1} max={40} onChange={this.onChange} value={this.state.inputValue}/> */}
-            {/* <Slider range defaultValue={[18, 32]} min={1} max={40} onChange={this.onChange} value={this.state.inputValue} /> */}
+          <Slider className="antSlider" range step={step} value={inputValue} min={min} max={max} onInputChange={this.props.onInputChange} onChange={this.onChange} onAfterChange={this.onChange} />
           </Col>
         </Row>
       </div>

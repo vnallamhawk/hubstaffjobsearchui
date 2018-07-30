@@ -99,9 +99,10 @@ class Home extends Component {
     this.setState({ filterParams })
   }
 
-  onInputChange = (index, value) => {
+  onSliderChange = (value) => {
+    debugger;
     const filterParams = Object.assign({}, this.state.filterParams);
-    filterParams["payRate"][index] = value;
+    filterParams["payRate"]= value;
     this.setState({ filterParams });
   }
 
@@ -195,7 +196,7 @@ class Home extends Component {
               <div className="sectionText">
               Pay rate/hr($)
               </div>
-                        <SliderC step={5} min={0} max={100} value={payRate} onchange={this.onInputChange} />
+                        <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
             </Row>
             <Row>
               <div className="sectionText">
