@@ -274,3 +274,43 @@ font-size: 20px;
   font-size: 18px;
   color: #7F90A8;
 }
+
+.fullTime{
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 200;
+  background: #4BD3FF;
+  margin-left: 10px;
+  border-radius: 13px;
+  border: 1px solid;
+  color: white;
+}
+
+.partTime{
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 200;
+  background: orange;
+  margin-left: 10px;
+  border-radius: 13px;
+  border: 1px solid;
+  color: white;
+}
+
+.hourly{
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 200;
+  background: lightseagreen;;
+  margin-left: 10px;
+  border-radius: 13px;
+  border: 1px solid;
+  color: white;
+}
+
+.rate{
+  float:right;
+  margin-right:10px;
+  font-weight:bold;
+  font-size:16px;
+}

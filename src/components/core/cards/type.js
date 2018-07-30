@@ -2,14 +2,14 @@ import React from 'react';
 
 const Type = ({jobType}) =>{
             switch (true) {
-                case jobType==='Full-Time':
-                    return <div className="fullTime" >{jobType} </div> 
+                case jobType==='Full-Time(40 hrs/wk)':
+                    return <span className="fullTime" >{jobType} </span> 
                     break;
-                case jobType==='Part-Time':
-                    return <div className="parttime" > {jobType} </div> 
+                case jobType==='Part-time(20 hrs/wk)':
+                    return <span className="partTime" > {jobType} </span> 
                     break;
                 case jobType==='Hourly':
-                    return <div className="hourly" >{jobType} </div> 
+                    return <span className="hourly" >{jobType} </span> 
                     break
                 default:
                     return null
