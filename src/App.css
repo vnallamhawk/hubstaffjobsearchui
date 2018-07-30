@@ -237,9 +237,40 @@ border: 0;
 font-size: 20px;
 }
 
+.colWhite{
+  color:white;
+}
+
 .padding-25{
   padding:0 25px;}    
 
 .clearBoth img{
   height: 20px;
 }  
+
+.footer{
+  height:300px;
+  background:#324258;
+  margin-top:20px;
+  padding:40px;
+  font-weight:medium;
+}
+
+.footerText{
+  color:white;
+}
+
+.footer ul{
+  padding:0;
+  list-style-type: none;
+}
+
+.footer ul li{
+  color:#7F90A8;
+  padding-bottom:10px;
+}
+
+.social{
+  font-size: 18px;
+  color: #7F90A8;
+}
