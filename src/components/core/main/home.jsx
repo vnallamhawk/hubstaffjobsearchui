@@ -28,16 +28,16 @@ class Home extends Component {
         "languages": []
       },
       currentPage: 1,
-      pageSize : 5,
-      total : props.jobs.length
+      pageSize: 5,
+      total: props.jobs.length
       //keyword : "",
     }
     //this.filterParams = { "keyword": "" };
   }
 
-  componentWillReceiveProps(nextProps){
-    if(this.props.jobs!==nextProps.jobs)
-    this.setState({total: nextProps.jobs.length})
+  componentWillReceiveProps(nextProps) {
+    if (this.props.jobs !== nextProps.jobs)
+      this.setState({ total: nextProps.jobs.length })
   }
 
   componentDidMount() {
@@ -47,7 +47,7 @@ class Home extends Component {
   btnSearch = () => {
     console.log(queryParams(this.state.filterParams));
     this.props.fetchJobs(queryParams(this.state.filterParams));
-    this.setState({currentPage:1});
+    this.setState({ currentPage: 1 });
   }
 
   onChange = (event) => {
@@ -62,8 +62,8 @@ class Home extends Component {
     this.setState({ filterParams });
   }
 
-  updateCurrentPage=(currentPage)=>{
-    this.setState({currentPage});
+  updateCurrentPage = (currentPage) => {
+    this.setState({ currentPage });
   }
 
   handleChange = (event, value, tagsValue) => {
@@ -102,7 +102,7 @@ class Home extends Component {
   onSliderChange = (value) => {
     debugger;
     const filterParams = Object.assign({}, this.state.filterParams);
-    filterParams["payRate"]= value;
+    filterParams["payRate"] = value;
     this.setState({ filterParams });
   }
 
@@ -116,18 +116,62 @@ class Home extends Component {
     //console.log('onAfterChange: ', value);
   }
 
-  clearAllFilters=()=>{
+  clearAllFilters = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
-    filterParams["keywords"]= "";
-    filterParams["skills"]= [];
-    filterParams["availability"]= [];
-    filterParams["jobType"]= "";
-    filterParams["payRate"]= [0, 40];
-    filterParams["experienceLevel"]= "";
-    filterParams["country"]=[];
-    filterParams["languages"]= [];
-    this.setState({filterParams});
+    filterParams["keywords"] = "";
+    filterParams["skills"] = [];
+    filterParams["availability"] = [];
+    filterParams["jobType"] = "";
+    filterParams["payRate"] = [0, 40];
+    filterParams["experienceLevel"] = "";
+    filterParams["country"] = [];
+    filterParams["languages"] = [];
+    this.setState({ filterParams });
   }
+
+  clearSkills=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["skills"] = [];
+    this.setState({ filterParams });
+  }
+
+  clearAvailability=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["availability"] = [];
+    this.setState({ filterParams });
+  }
+
+  clearJobType=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["jobType"] = "";
+    this.setState({ filterParams });
+  }
+  
+  clearSlider=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["payRate"] = [0, 0];
+    this.setState({ filterParams });
+  }
+
+  clearExperience=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["experienceLevel"] = "";
+    this.setState({ filterParams });
+  }
+
+  clearCountries=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["country"] = []
+    this.setState({ filterParams });
+  }
+
+  clearLanguages=()=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["languages"] = []
+    this.setState({ filterParams });
+  }
+
+
 
   handleMenuClick = () => {
 
@@ -136,14 +180,14 @@ class Home extends Component {
     const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
     const experienceOption = ["Junior", "Mid", "Senior"]
     const { jobs } = this.props;
-    const {currentPage,pageSize,total} = this.state;
-    const { skills, jobType, experienceLevel, languages, country, payRate,availability } = this.state.filterParams;
-    let cardList = [],topJobs=[],mostViewed=[];
+    const { currentPage, pageSize, total } = this.state;
+    const { skills, jobType, experienceLevel, languages, country, payRate, availability } = this.state.filterParams;
+    let cardList = [], topJobs = [], mostViewed = [];
     console.log(availability);
-    let upperLimit = currentPage*pageSize <jobs.length? currentPage*pageSize : jobs.length;
+    let upperLimit = currentPage * pageSize < jobs.length ? currentPage * pageSize : jobs.length;
     if (jobs.length > 0) {
-      for (let i = currentPage*pageSize -pageSize; i < upperLimit; i++) {
-        cardList.push(<div> <Cards jobs={jobs[i]} hide={false}/> <hr/> </div>)
+      for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
+        cardList.push(<div> <Cards jobs={jobs[i]} hide={false} /> <hr /> </div>)
       }
       // for(let i=0;i<2;i++){
       //   topJobs.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
@@ -153,106 +197,131 @@ class Home extends Component {
       // }
     }
     return (
-        <div>
-          <div className="searchSection">
+      <div>
+        <div className="searchSection">
           <Search name="keyword" onChange={this.onChange} placeHolder="Search by keywords(PHP,.NET,graphic design,etc.)" />
           <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
         </div>
         <Row>
           <Col className="section1" span={6}>
             <Row>
-            <div className="filters">
-              FILTERS
+              <div className="filters">
+                FILTERS
         </div>
-        <div>
-              <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
-          </div>
-        
-     
-              </Row>
-              <hr/>
-            <Row>
-              <div className="sectionText">
-              Skills
-              </div>
-                <SelectDropDown value={skills} mode="tags" placeHolder="" option={[]} defaultValue={[]} handleChange={this.handleChange} />
-
-            </Row>
-            <Row>
-              <div className="sectionText">
-              Availability
-              </div>
-                  <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
-            </Row>
-            <Row>
-              <div className="sectionText">
-              Job Type
+              <div>
+                <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
               </div>
 
-               <SelectDropDown value={jobType} mode="" placeHolder="" option={options} defaultValue={[]} handleChange={this.handleChangeJobType} />
+
+            </Row>
+            <hr />
+            <Row>
+              <div className="sectionText setWidth floatLeft">
+                Skills
+              </div>
+              <div>
+                <a className="clear" onClick={this.clearSkills.bind(this)}>Clear</a>
+              </div>
+              <SelectDropDown value={skills} mode="tags" placeHolder="" option={[]} defaultValue={[]} handleChange={this.handleChange} />
+             
+            </Row>
+            <Row>
+              <div>
+              <div className="sectionText setWidth floatLeft">
+                Availability
+              </div>
+              <div>
+                <a className="clear" onClick={this.clearAvailability.bind(this)}>Clear</a>
+              </div>
+              </div>
+              <div className="clearBoth">
+              <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
+              </div>
+            </Row>
+            <Row>
+              <div className="sectionText setWidth floatLeft">
+                Job Type
+              </div>
+              <div>
+                <a className="clear" onClick={this.clearJobType.bind(this)}>Clear</a>
+              </div>
+
+              <SelectDropDown value={jobType} mode="" placeHolder="" option={options} defaultValue={[]} handleChange={this.handleChangeJobType} />
               {/* <Drpdown option={options} /> */}
             </Row>
             <Row>
-              <div className="sectionText">
-              Pay rate/hr($)
+              <div className="sectionText setWidth floatLeft">
+                Pay rate/hr($)
               </div>
-                        <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
+              <div>
+                <a className="clear" onClick={this.clearSlider.bind(this)}>Clear</a>
+              </div>
+              <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
             </Row>
             <Row>
-              <div className="sectionText">
-              Experience Level
+              <div className="sectionText setWidth floatLeft">
+                Experience Level
+              </div>
+              <div>
+                <a className="clear" onClick={this.clearExperience.bind(this)}>Clear</a>
               </div>
               <SelectDropDown value={experienceLevel} mode="" placeHolder="" option={experienceOption} defaultValue={[]} handleChange={this.handleChangeExpLevel} />
               {/* <Drpdown option={options} /> */}
             </Row>
             <Row>
-              <div className="sectionText">
-              Countries
+              <div className="sectionText setWidth floatLeft">
+                Countries
               </div>
-                <SelectDropDown value={country} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
+              <div>
+                <a className="clear" onClick={this.clearCountries.bind(this)}>Clear</a>
+              </div>
+              <SelectDropDown value={country} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
             </Row>
             <Row>
-              <div className="sectionText">
-              Languages
+              <div className="sectionText setWidth floatLeft">
+                Languages
+              </div> 
+              <div>
+                <a className="clear" onClick={this.clearLanguages.bind(this)}>Clear</a>
               </div>
-                <SelectDropDown value={languages} mode="tags" placeHolder="Enter Language" option={[]} defaultValue={[]} handleChange={this.handleChangeLanguages} />
+              <SelectDropDown value={languages} mode="tags" placeHolder="Enter Language" option={[]} defaultValue={[]} handleChange={this.handleChangeLanguages} />
             </Row>
           </Col>
 
 
           <Col className="whiteBg" span={12}>
-           {jobs.length>0 && 
-            <div className="cardsSection ">
-            <Row>
-              <div className="sectionText">
-              RESULTS ({jobs.length}) 
+            {jobs.length > 0 &&
+              <div className="cardsSection ">
+                <Row>
+                  <div className="sectionText">
+                    RESULTS ({jobs.length})
+                  </div>
+                </Row>
+                <Row>
+                  {cardList}
+                </Row>
+                < Pagination onChangePage={this.updateCurrentPage} currentPage={currentPage} pageSize={pageSize} total={total} />
               </div>
-              </Row>
-              <Row>
-            {cardList}
-            </Row>
-            < Pagination onChangePage={this.updateCurrentPage} currentPage={currentPage} pageSize={pageSize} total={total}/>
-            </div> 
-           }
+            }
           </Col>
           <Col span={6} className="padding-25">
-           <div className="whiteBg centerAlign padding-30">
-              <img src="images/hubStaff.PNG"/>
-              <div className="sectionText"> 
+            <div className="whiteBg centerAlign padding-30">
+              <img src="images/hubStaff.PNG" />
+              <div className="sectionText">
                 TRACK TIME ON HUBSTAFF
                 </div>
-                <p> 
-                 Pay only for the hours worked
+              <p>
+                Pay only for the hours worked
                 </p>
-                <Button className="signUp" type="submit" btnSearchTxt="SignUp" />
-                <p>
-                  <a>
-                    Learn more...
+              <Button className="signUp" type="submit" btnSearchTxt="SignUp" />
+              <p>
+                <a>
+                  Learn more...
                     </a>
-                  </p>
-                
-           </div>
-           {/* <Row>
+              </p>
+
+            </div>
+            {/* <Row>
            <div className="sectionText"> 
            TOP JOBS
            </div>
