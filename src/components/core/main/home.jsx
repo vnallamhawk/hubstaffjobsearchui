@@ -3,9 +3,7 @@ import { Row, Col } from 'antd';
 import { Search } from '../common/search'
 import { SelectDropDown } from '../common/select'
 import Chkbox from '../common/checkbox';
-import Drpdown from '../common/dropdown'
-import { fetchJobs } from '../../../actions/home'
-import { TextBox } from '../common/textbox';
+import { fetchJobs, topJobs } from '../../../actions/home'
 import Button from '../common/button';
 import { queryParams } from '../common/global'
 import SliderC from '../common/Slider'
@@ -30,9 +28,7 @@ class Home extends Component {
       currentPage: 1,
       pageSize: 5,
       total: props.jobs.length
-      //keyword : "",
     }
-    //this.filterParams = { "keyword": "" };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,11 +37,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    // this.props.fetchJobs("");  
+    this.props.topJobs();
   }
 
   btnSearch = () => {
-    console.log(queryParams(this.state.filterParams));
     this.props.fetchJobs(queryParams(this.state.filterParams));
     this.setState({ currentPage: 1 });
   }
@@ -59,6 +54,7 @@ class Home extends Component {
   onChkBoxChange = (value) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["availability"] = value;
+    this.props.fetchJobs(queryParams(filterParams));
     this.setState({ filterParams });
   }
 
@@ -67,53 +63,50 @@ class Home extends Component {
   }
 
   handleChange = (event, value, tagsValue) => {
-    //console.log(value); 
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["skills"] = tagsValue;
-    //console.log(filterParams);
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
   handleChangeCountries = (event, value, tagsValue) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["country"] = tagsValue;
-    //console.log(filterParams);
     this.setState({ filterParams })
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
   handleChangeLanguages = (event, value, tagsValue) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["languages"] = tagsValue;
-    //console.log(filterParams);
     this.setState({ filterParams })
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
   handleChangeJobType = (event, value) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["jobType"] = value
     this.setState({ filterParams })
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
   handleChangeExpLevel = (event, value) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["experienceLevel"] = value
     this.setState({ filterParams })
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
   onSliderChange = (value) => {
-    debugger;
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["payRate"] = value;
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
   onAfterChange = (input) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["payRate"] = input;
     this.setState({ filterParams });
-    // let inputValue = [...this.state.inputValue];
-    // inputValue = input;
-    // this.setState({inputValue});
-    //console.log('onAfterChange: ', value);
   }
 
   clearAllFilters = () => {
@@ -129,72 +122,76 @@ class Home extends Component {
     this.setState({ filterParams });
   }
 
-  clearSkills=()=>{
+  clearSkills = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["skills"] = [];
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-  clearAvailability=()=>{
+  clearAvailability = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["availability"] = [];
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-  clearJobType=()=>{
+  clearJobType = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["jobType"] = "";
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
-  
-  clearSlider=()=>{
+
+  clearSlider = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["payRate"] = [0, 0];
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-  clearExperience=()=>{
+  clearExperience = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["experienceLevel"] = "";
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-  clearCountries=()=>{
+  clearCountries = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["country"] = []
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-  clearLanguages=()=>{
+  clearLanguages = () => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["languages"] = []
     this.setState({ filterParams });
+    this.props.fetchJobs(queryParams(filterParams));
   }
 
-
-
-  handleMenuClick = () => {
-
-  }
   render() {
     const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
     const experienceOption = ["Junior", "Mid", "Senior"]
-    const { jobs } = this.props;
+    const { jobs, topViewed } = this.props;
     const { currentPage, pageSize, total } = this.state;
     const { skills, jobType, experienceLevel, languages, country, payRate, availability } = this.state.filterParams;
-    let cardList = [], topJobs = [], mostViewed = [];
-    console.log(availability);
+    let cardList = [], topJob = [], mostViewed = [];
     let upperLimit = currentPage * pageSize < jobs.length ? currentPage * pageSize : jobs.length;
     if (jobs.length > 0) {
       for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
         cardList.push(<div> <Cards jobs={jobs[i]} hide={false} /> <hr /> </div>)
       }
-      // for(let i=0;i<2;i++){
-      //   topJobs.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
-      // }
-      // for(let i=0;i<2;i++){
-      //   mostViewed.push(<div> <Cards jobs={jobs[i]} hide={true} /> <hr/> </div>)
-      // }
+    }
+    if (topViewed.length > 0) {
+      for (let i = 0; i < topViewed.length; i++) {
+        topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <hr /> </div>)
+      }
+      for (let i = 0; i < topViewed.length; i++) {
+        mostViewed.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <hr /> </div>)
+      }
+
     }
     return (
       <div>
@@ -223,19 +220,19 @@ class Home extends Component {
                 <a className="clear" onClick={this.clearSkills.bind(this)}>Clear</a>
               </div>
               <SelectDropDown value={skills} mode="tags" placeHolder="" option={[]} defaultValue={[]} handleChange={this.handleChange} />
-             
+
             </Row>
             <Row>
               <div>
-              <div className="sectionText setWidth floatLeft">
-                Availability
+                <div className="sectionText setWidth floatLeft">
+                  Availability
               </div>
-              <div>
-                <a className="clear" onClick={this.clearAvailability.bind(this)}>Clear</a>
-              </div>
+                <div>
+                  <a className="clear" onClick={this.clearAvailability.bind(this)}>Clear</a>
+                </div>
               </div>
               <div className="clearBoth">
-              <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
+                <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
               </div>
             </Row>
             <Row>
@@ -247,7 +244,6 @@ class Home extends Component {
               </div>
 
               <SelectDropDown value={jobType} mode="" placeHolder="" option={options} defaultValue={[]} handleChange={this.handleChangeJobType} />
-              {/* <Drpdown option={options} /> */}
             </Row>
             <Row>
               <div className="sectionText setWidth floatLeft">
@@ -266,7 +262,6 @@ class Home extends Component {
                 <a className="clear" onClick={this.clearExperience.bind(this)}>Clear</a>
               </div>
               <SelectDropDown value={experienceLevel} mode="" placeHolder="" option={experienceOption} defaultValue={[]} handleChange={this.handleChangeExpLevel} />
-              {/* <Drpdown option={options} /> */}
             </Row>
             <Row>
               <div className="sectionText setWidth floatLeft">
@@ -280,7 +275,7 @@ class Home extends Component {
             <Row>
               <div className="sectionText setWidth floatLeft">
                 Languages
-              </div> 
+              </div>
               <div>
                 <a className="clear" onClick={this.clearLanguages.bind(this)}>Clear</a>
               </div>
@@ -321,23 +316,23 @@ class Home extends Component {
               </p>
 
             </div>
-            {/* <Row>
-           <div className="sectionText"> 
-           TOP JOBS
+            <Row>
+              <div className="sectionText">
+                TOP JOBS
            </div>
-           <hr/>
-           {topJobs}
+              <hr />
+              {topJob}
 
-             </Row>
+            </Row>
 
-              <Row>
-           <div className="sectionText"> 
-           MOST VIEWED THIS WEEK
+            <Row>
+              <div className="sectionText">
+                MOST VIEWED THIS WEEK
            </div>
-           <hr/>
-           {mostViewed}
+              <hr />
+              {mostViewed}
 
-             </Row> */}
+            </Row>
 
           </Col>
         </Row>
@@ -349,13 +344,15 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    jobs: state.jobs
+    jobs: state.jobs,
+    topViewed: state.topJobs
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchJobs: (args) => dispatch(fetchJobs(args))
+    fetchJobs: (args) => dispatch(fetchJobs(args)),
+    topJobs: () => dispatch(topJobs())
   }
 }
 

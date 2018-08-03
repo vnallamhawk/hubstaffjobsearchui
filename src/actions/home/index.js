@@ -1,6 +1,6 @@
 import {root} from '../../apiConfig';
 import axios from 'axios';
-import {FETCH_JOBS} from '../types';
+import {FETCH_JOBS,TOP_JOBS} from '../types';
 
 export function fetchJobs(args){
     let queryParams = undefined===args? 'jobs' : `jobs?${args}`;
@@ -11,3 +11,12 @@ export function fetchJobs(args){
     }
 }
 
+
+
+export function topJobs(args){
+    const request = axios.get(`${root}/topJobs`);
+    return {
+        type : TOP_JOBS,
+        payload : request
+    }
+}

@@ -3,24 +3,16 @@ import Skill from './skill';
 import List from './list';
 import Type from './type';
 import { Icon } from 'antd'
+import { topJobs } from '../../../actions/home';
 
 const cards = ({ jobs, hide }) => {
-    // let skills = [];
-    // console.log(props);
-    // debugger;
-    // let skills = props.skills.map((skill) => {
-    //     <Skill skill={skill}/>
-    // })
-    // for(let i= 0;i<props.skills.length;i++){
-    //     skills.push(<Skill val={props.skills[i]}/>)
-    // }
-    console.log(jobs.type.join());
     return (
         <div>
-            <div className="sectionText floatLeft">
+            <div className={"sectionText" + (!hide ? 'float' : '')}>
                 {jobs.rolename}
-
-                 <Type jobType={jobs.type.join()} />
+                {!hide &&
+                    <Type jobType={jobs.type.join()} />
+                }
             </div>
             <div className="rate">
                 $ {jobs.rate} / hr
