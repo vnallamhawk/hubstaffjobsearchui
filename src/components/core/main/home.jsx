@@ -186,10 +186,10 @@ class Home extends Component {
     }
     if (topViewed.length > 0) {
       for (let i = 0; i < topViewed.length; i++) {
-        topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <hr /> </div>)
+        topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <br/> </div>)
       }
       for (let i = 0; i < topViewed.length; i++) {
-        mostViewed.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <hr /> </div>)
+        mostViewed.push(<div> <Cards jobs={topViewed[i]} hide={true} />  <br/></div>)
       }
 
     }
