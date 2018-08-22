@@ -23,7 +23,8 @@ class Home extends Component {
         "payRate": [0, 40],
         "experienceLevel": "",
         "country": [],
-        "languages": []
+        "languages": [],
+        "includePayrate" : true
       },
       currentPage: 1,
       pageSize: 5,
@@ -171,12 +172,19 @@ class Home extends Component {
     this.props.fetchJobs(queryParams(filterParams));
   }
 
+  onChkBoxChangePayRate=(includePayrate)=>{
+    const filterParams = Object.assign({}, this.state.filterParams);
+    filterParams["includePayrate"] = includePayrate;
+    this.setState({filterParams});
+  }
+
   render() {
     const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
-    const experienceOption = ["Junior", "Mid", "Senior"]
+    const experienceOption = ["Junior", "Mid", "Senior"];
+    const payRateOptions = ["Include profile without pay rates"];
     const { jobs, topViewed } = this.props;
     const { currentPage, pageSize, total } = this.state;
-    const { skills, jobType, experienceLevel, languages, country, payRate, availability } = this.state.filterParams;
+    const { skills, jobType, experienceLevel, languages, country, payRate, availability,includePayrate } = this.state.filterParams;
     let cardList = [], topJob = [], mostViewed = [];
     let upperLimit = currentPage * pageSize < jobs.length ? currentPage * pageSize : jobs.length;
     if (jobs.length > 0) {
@@ -253,6 +261,9 @@ class Home extends Component {
                 <a className="clear" onClick={this.clearSlider.bind(this)}>Clear</a>
               </div>
               <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
+              <div>
+              <Chkbox value={payRateOptions} onChange={this.onChkBoxChangePayRate} option={payRateOptions} />
+              </div>
             </Row>
             <Row>
               <div className="sectionText setWidth floatLeft">
