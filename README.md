@@ -57,3 +57,6 @@ The below component can be used in your application as shown below
 | defaultValue	| String		|Optional.The default value of the dropdown   				|
 | mode			| String	    |Optional.The mode of the dropdown (Single/Multi)			|
 
+## Future Enhancements
+	- Including a spinner while loading for search results.
+	- Including options for profiles with search rates. 
