@@ -15,10 +15,7 @@ import registerServiceWorker from './registerServiceWorker';
 const createStoreWithMiddleware = applyMiddleware(thunk, promise())(createStore);
 
 ReactDOM.render((
-    <Provider store={createStoreWithMiddleware(reducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    <Provider store={createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )}>
-        {/* <StartUp> */}
-             <App />
-        {/* </StartUp> */}
-        </Provider>), document.getElementById('root'));
-//registerServiceWorker();
+        <App />
+    </Provider>), document.getElementById('root'));

@@ -41,8 +41,6 @@ const Footer = () => {
                     <li>Terms </li>
                     <li>Privacy </li>
                 </ul>
-
-
             </Col>
             <Col span={6} >
                 <p className="footerText">
@@ -59,13 +57,10 @@ const Footer = () => {
                         <Icon type="instagram" className="social"/>
                     </Col>
                 </Row>
-
             </Col>
 
         </div>
     )
-
-
 }
 
 export default Footer;
