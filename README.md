@@ -12,9 +12,8 @@ clone from this stash and follow the following instructions
 The site will be by default hosted on port 8080 in the following url 
 https://localhost:8080
 
-## Table of Contents
+## [Components](#Components)
 
-[Components](#Components)
 	- [button](#button)
 	- [checkbox](#checkbox)
 	- [dropdown](#dropdown)
