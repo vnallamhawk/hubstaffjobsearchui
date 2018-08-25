@@ -14,7 +14,7 @@ https://localhost:8080
 
 ## Table of Contents
 
-- [Components](#Components)
+[Components](#Components)
 	- [button](#button)
 	- [checkbox](#checkbox)
 	- [dropdown](#dropdown)
