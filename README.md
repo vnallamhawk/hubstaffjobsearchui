@@ -12,9 +12,9 @@ clone from this stash and follow the following instructions
 The site will be by default hosted on port 8080 in the following url 
 https://localhost:8080
 
-## Components
-The below component can be used in your application as shown below
+## Table of Contents
 
+[Components](#Components)
 	- [button](#button)
 	- [checkbox](#checkbox)
 	- [dropdown](#dropdown)
@@ -22,7 +22,10 @@ The below component can be used in your application as shown below
 	- [pagination](#pagination)
 	- [textbox](#textbox)
 	- [footer](#footer)
-	
+ 
+## Components
+The below component can be used in your application as shown below
+
 ## button
 
 | Name  		|	 Type 		|Description   					   |	
