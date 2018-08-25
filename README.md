@@ -28,21 +28,35 @@ The below component can be used in your application as shown below
 
 ## button
 
-| Name  			|	 Type 		|Description   |	
-| ------------- 	| ------------- |------------- |
-| className		  	| Content Cell  |Content Cell  |
-| Content Cell  	| Content Cell  |Content Cell  |
-
-
+| Name  		|	 Type 		|Description   					   |	
+| ------------- | ------------- |--------------------------------- |
+| className		| String	    |Optional.The classname to be used |
+| type		    | String		|Optional. The type of the button  |
+| btnSearchTxt	| Function		|Optional. Value of the button     |
 
 ## checkbox 
 
-## dropdown
-
-## slider
+| Name  		|	 Type 		|Description   					   |	
+| ------------- | ------------- |--------------------------------- |
+| selected		| String	    |Optional. The selected value	   |
 
 ## pagination
 
-## textbox
+| Name  		|	 Type 		|Description   					   		|	
+| ------------- | ------------- |-------------------------------------- |
+| currentPage	| Number	    |Optional.The value of the current page |
 
-## footer
+## slider
+
+| Name  		|	 Type 		|Description   					   		|	
+| ------------- | ------------- |-------------------------------------- |
+| value			| Array		    |Optional.The start and end value   	|
+
+## select
+| Name  		|	 Type 		|Description   					   							|	
+| ------------- | ------------- |-----------------------------------------------------------|
+| option		| Array		    |Optional.The option for the select dropdown				|
+| placeholder	| String	    |Optional.The placeholder of the dropdown  					|
+| defaultValue	| String		|Optional.The default value of the dropdown   				|
+| mode			| String	    |Optional.The mode of the dropdown (Single/Multi)			|
+

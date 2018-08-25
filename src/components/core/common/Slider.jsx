@@ -27,7 +27,6 @@ export default class SliderC extends Component {
     let inputValue = [...this.state.inputValue];
     inputValue[index] = value
     this.setState({ inputValue }, function () {
-
       this.props.onChange(inputValue);
     })
   }
