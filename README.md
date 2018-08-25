@@ -21,7 +21,6 @@ The below component can be used in your application as shown below
 - [slider](#slider)
 - [pagination](#pagination)
 - [textbox](#textbox)
-- [footer](#footer)
 
 ## button
 
