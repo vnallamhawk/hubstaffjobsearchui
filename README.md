@@ -15,13 +15,13 @@ https://localhost:8080
 ## Table of Contents
 
 [Components](#Components)
-	- [button](#button)
-	- [checkbox](#checkbox)
-	- [dropdown](#dropdown)
-	- [slider](#slider)
-	- [pagination](#pagination)
-	- [textbox](#textbox)
-	- [footer](#footer)
+- [button](#button)
+- [checkbox](#checkbox)
+- [dropdown](#dropdown)
+- [slider](#slider)
+- [pagination](#pagination)
+- [textbox](#textbox)
+- [footer](#footer)
  
 ## Components
 The below component can be used in your application as shown below
