@@ -59,3 +59,5 @@ The below component can be used in your application as shown below
 ## Future Enhancements
 	- Including a spinner while loading for search results.
 	- Including options for profiles with search rates. 
+	- Including support for mobile devices.
+	
