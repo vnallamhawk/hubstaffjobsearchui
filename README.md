@@ -12,6 +12,8 @@ clone from this stash and follow the following instructions
 The site will be by default hosted on port 8080 in the following url 
 https://localhost:8080
 
+![Example gif](./Screenshot.png)
+
 ## Table of Contents
 
 The below component are used in this application
