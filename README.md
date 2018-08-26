@@ -1,7 +1,7 @@
 ## HubStaff Job Search
 HubStaff Job Search offers candidates to search for jobs based on
 a set of filters.This app is created using Reactjs, Redux, Nodejs.
-The site is hosted using Heroku (https://hubstaffjobsearch.herokuapp.com).
+The site is hosted using Heroku (https://hubstaffjobsearch.herokuapp.com). The backend API consumed by the UI is hosted at the following endpoint (https://hubstaffapi.herokuapp.com/)
 
 ## Getting Started.
 To start this application on your application on your local system,
@@ -62,3 +62,5 @@ The below component are used in this application
 	- Including a spinner while loading for search results.
 	- Including options for profiles with search rates. 
 	- Including support for mobile devices.
+
+

@@ -5,11 +5,13 @@ import Footer from './components/core/common/footer';
 import Home from './components/core/main/home';
 import './App.css';
 import { Layout } from 'antd'
+import SideDrawer from './components/core/common/SideDrawer/SideDrawer';
 
 class App extends Component {
   render() {
     return (<div>
       <Navigation />
+      <SideDrawer/>
       <div className="container">
         <Home />
       </div>
