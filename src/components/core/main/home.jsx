@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Search } from '../common/search'
 import { SelectDropDown } from '../common/select'
-import Spinner from '../common/Spinner';
+import Spinner from '../common/spinner';
 import Chkbox from '../common/checkbox';
 import { fetchJobs, topJobs } from '../../../actions/home'
 import Button from '../common/button';
-import { queryParams,undefinedEmptyCheck } from '../common/global'
+import { queryParams, undefinedEmptyCheck } from '../common/global'
 import SliderC from '../common/Slider'
 import { connect } from 'react-redux'
 import Cards from '../cards/cards.js'
 import Pagination from '../common/pagination'
 import withSizes from 'react-sizes'
-import {compose} from 'redux';
+import { compose } from 'redux';
 
 class Home extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class Home extends Component {
         "experienceLevel": "",
         "country": [],
         "languages": [],
-        "includePayrate" : true
+        "includePayrate": true
       },
       currentPage: 1,
       pageSize: 5,
@@ -37,7 +37,7 @@ class Home extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.jobs !== nextProps.jobs)
-      this.setState({jobs : nextProps.jobs })
+      this.setState({ jobs: nextProps.jobs })
   }
 
   componentDidMount() {
@@ -175,10 +175,10 @@ class Home extends Component {
     this.props.fetchJobs(queryParams(filterParams));
   }
 
-  onChkBoxChangePayRate=(includePayrate)=>{
+  onChkBoxChangePayRate = (includePayrate) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["includePayrate"] = includePayrate;
-    this.setState({filterParams});
+    this.setState({ filterParams });
   }
 
   render() {
@@ -187,29 +187,23 @@ class Home extends Component {
     const payRateOptions = ["Include profile without pay rates"];
     const { jobs, topViewed } = this.props;
     const { currentPage, pageSize } = this.state;
-    const { skills, jobType, experienceLevel, languages, country, payRate, availability,includePayrate } = this.state.filterParams;
+    const { skills, jobType, experienceLevel, languages, country, payRate, availability, includePayrate } = this.state.filterParams;
     let cardList = [], topJob = [], mostViewed = [];
-    let searchResultSpanSize =  this.props.isMobile? 24 :12;
-    let sideMenuSpanSize = this.props.isMobile? 24 :6;
-    if (jobs.fetched===true && jobs.response.length > 0) {
-      console.log("topJobs");
+    let searchResultSpanSize = this.props.isMobile ? 24 : 12;
+    let sideMenuSpanSize = this.props.isMobile ? 24 : 6;
+    if (jobs.fetched === true && jobs.response.length > 0) {
       let upperLimit = currentPage * pageSize < jobs.response.length ? currentPage * pageSize : jobs.response.length;
       for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
-        console.log(jobs.response[i]);
         cardList.push(<div> <Cards jobs={jobs.response[i]} hide={false} /> <hr /> </div>)
       }
     }
     if (topViewed.length > 0) {
-      console.log("topviewed");
       for (let i = 0; i < topViewed.length; i++) {
-        
-        console.log(topViewed[i])
-        topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <br/> </div>)
+        topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <br /> </div>)
       }
       for (let i = 0; i < topViewed.length; i++) {
-        mostViewed.push(<div> <Cards jobs={topViewed[i]} hide={true} />  <br/></div>)
+        mostViewed.push(<div> <Cards jobs={topViewed[i]} hide={true} />  <br /></div>)
       }
-
     }
     return (
       <div>
@@ -218,98 +212,96 @@ class Home extends Component {
           <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
         </div>
         <Row>
-          {this.props.isMobile!==true&&
-          <Col className="section1" span={6}>
-            <Row>
-              <div className="filters">
-                FILTERS
+          {this.props.isMobile !== true &&
+            <Col className="section1" span={6}>
+              <Row>
+                <div className="filters">
+                  FILTERS
         </div>
-              <div>
-                <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
-              </div>
-            </Row>
-            <hr />
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Skills
-              </div>
-              <div>
-                <a className="clear" onClick={this.clearSkills.bind(this)}>Clear</a>
-              </div>
-              <SelectDropDown value={skills} mode="tags" placeHolder="" option={[]} defaultValue={[]} handleChange={this.handleChange} />
-
-            </Row>
-            <Row>
-              <div>
+                <div>
+                  <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
+                </div>
+              </Row>
+              <hr />
+              <Row>
                 <div className="sectionText setWidth floatLeft">
-                  Availability
+                  Skills
               </div>
                 <div>
-                  <a className="clear" onClick={this.clearAvailability.bind(this)}>Clear</a>
+                  <a className="clear" onClick={this.clearSkills.bind(this)}>Clear</a>
                 </div>
-              </div>
-              <div className="clearBoth">
-                <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
-              </div>
-            </Row>
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Job Type
-              </div>
-              <div>
-                <a className="clear" onClick={this.clearJobType.bind(this)}>Clear</a>
-              </div>
+                <SelectDropDown value={skills} mode="tags" placeHolder="" option={[]} defaultValue={[]} handleChange={this.handleChange} />
 
-              <SelectDropDown value={jobType} mode="" placeHolder="" option={options} defaultValue={[]} handleChange={this.handleChangeJobType} />
-            </Row>
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Pay rate/hr($)
+              </Row>
+              <Row>
+                <div>
+                  <div className="sectionText setWidth floatLeft">
+                    Availability
               </div>
-              <div>
-                <a className="clear" onClick={this.clearSlider.bind(this)}>Clear</a>
+                  <div>
+                    <a className="clear" onClick={this.clearAvailability.bind(this)}>Clear</a>
+                  </div>
+                </div>
+                <div className="clearBoth">
+                  <Chkbox value={availability} onChange={this.onChkBoxChange} option={options} />
+                </div>
+              </Row>
+              <Row>
+                <div className="sectionText setWidth floatLeft">
+                  Job Type
               </div>
-              <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
-              <div>
-              <Chkbox value={payRateOptions} onChange={this.onChkBoxChangePayRate} option={payRateOptions} />
+                <div>
+                  <a className="clear" onClick={this.clearJobType.bind(this)}>Clear</a>
+                </div>
+
+                <SelectDropDown value={jobType} mode="" placeHolder="" option={options} defaultValue={[]} handleChange={this.handleChangeJobType} />
+              </Row>
+              <Row>
+                <div className="sectionText setWidth floatLeft">
+                  Pay rate/hr($)
               </div>
-            </Row>
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Experience Level
+                <div>
+                  <a className="clear" onClick={this.clearSlider.bind(this)}>Clear</a>
+                </div>
+                <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
+                <div>
+                  <Chkbox value={payRateOptions} onChange={this.onChkBoxChangePayRate} option={payRateOptions} />
+                </div>
+              </Row>
+              <Row>
+                <div className="sectionText setWidth floatLeft">
+                  Experience Level
               </div>
-              <div>
-                <a className="clear" onClick={this.clearExperience.bind(this)}>Clear</a>
+                <div>
+                  <a className="clear" onClick={this.clearExperience.bind(this)}>Clear</a>
+                </div>
+                <SelectDropDown value={experienceLevel} mode="" placeHolder="" option={experienceOption} defaultValue={[]} handleChange={this.handleChangeExpLevel} />
+              </Row>
+              <Row>
+                <div className="sectionText setWidth floatLeft">
+                  Countries
               </div>
-              <SelectDropDown value={experienceLevel} mode="" placeHolder="" option={experienceOption} defaultValue={[]} handleChange={this.handleChangeExpLevel} />
-            </Row>
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Countries
+                <div>
+                  <a className="clear" onClick={this.clearCountries.bind(this)}>Clear</a>
+                </div>
+                <SelectDropDown value={country} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
+              </Row>
+              <Row>
+                <div className="sectionText setWidth floatLeft">
+                  Languages
               </div>
-              <div>
-                <a className="clear" onClick={this.clearCountries.bind(this)}>Clear</a>
-              </div>
-              <SelectDropDown value={country} mode="tags" placeHolder="Enter state,provice or country" option={[]} defaultValue={[]} handleChange={this.handleChangeCountries} />
-            </Row>
-            <Row>
-              <div className="sectionText setWidth floatLeft">
-                Languages
-              </div>
-              <div>
-                <a className="clear" onClick={this.clearLanguages.bind(this)}>Clear</a>
-              </div>
-              <SelectDropDown value={languages} mode="tags" placeHolder="Enter Language" option={[]} defaultValue={[]} handleChange={this.handleChangeLanguages} />
-            </Row>
-          </Col>
+                <div>
+                  <a className="clear" onClick={this.clearLanguages.bind(this)}>Clear</a>
+                </div>
+                <SelectDropDown value={languages} mode="tags" placeHolder="Enter Language" option={[]} defaultValue={[]} handleChange={this.handleChangeLanguages} />
+              </Row>
+            </Col>
           }
-
-
           <Col className="whiteBg" span={searchResultSpanSize}>
-          {jobs.fetching===true &&<div className="Spinner">
-            <Spinner/>
+            {jobs.fetching === true && <div className="spinner">
+              <Spinner />
             </div>}
-            {jobs.fetched===true&&jobs.response.length > 0 &&
+            {jobs.fetched === true && jobs.response.length > 0 &&
               <div className="cardsSection ">
                 <Row>
                   <div className="sectionText">
@@ -338,7 +330,6 @@ class Home extends Component {
                   Learn more...
                     </a>
               </p>
-
             </div>
             <Row>
               <div className="sectionText">
@@ -346,23 +337,17 @@ class Home extends Component {
            </div>
               <hr />
               {topJob}
-
             </Row>
-
             <Row>
               <div className="sectionText">
                 MOST VIEWED THIS WEEK
            </div>
               <hr />
               {mostViewed}
-
             </Row>
-
           </Col>
         </Row>
-        
       </div>
-
     );
   }
 }
@@ -371,7 +356,7 @@ const mapStateToProps = (state) => {
   return {
     jobs: state.jobs,
     topViewed: state.topJobs
-    }
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -381,9 +366,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
-// const enhance = compose(
-//   withSizes(mapSizesToProps),
-//   connect(mapStateToProps, mapDispatchToProps))
-
-// export default enhance(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
