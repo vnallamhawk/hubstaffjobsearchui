@@ -24,7 +24,7 @@ body{
 
  .toolbar_navigation{
    display:flex;
-   height:100%;
+   height:69px;
    align-items:center;
    padding:0 1rem;  
  }
@@ -88,6 +88,13 @@ body{
     margin-top: -25px !important;
     margin-left: -10px !important;
    }
+   .btnSearch{
+     margin-top: 14px !important;
+   }
+   .sideMenu{
+    padding:0 !important;
+    margin-top: 14px !important;
+   }
  }
 
  .container{
@@ -116,10 +123,6 @@ body{
   width: 64%;
   float: left;
 }
-/* 
-.filterSection{
-  padding-top:2em;  
-} */
 
 .clear{
   color:grey;
@@ -205,19 +208,15 @@ body{
 }
 
 .companyIcon {
-  /* background: url('images/company.png'); */
   height: 16px;
   width: 16px;
   display: block;
-  /* Other styles here */
 }
 
 .locationIcon {
-  /* background: url('images/location.png'); */
   height: 16px;
   width: 16px;
   display: block;
-  /* Other styles here */
 }
 
 .centerAlign{
