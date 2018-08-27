@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import { Search } from '../common/search'
-import { SelectDropDown } from '../common/select'
+import { Search } from '../common/search';
+import { SelectDropDown } from '../common/select';
 import Spinner from '../common/spinner';
 import Chkbox from '../common/checkbox';
-import { fetchJobs, topJobs } from '../../../actions/home'
+import { fetchJobs, topJobs } from '../../../actions/home';
 import Button from '../common/button';
-import { queryParams, undefinedEmptyCheck } from '../common/global'
-import SliderC from '../common/Slider'
-import { connect } from 'react-redux'
-import Cards from '../cards/cards.js'
-import Pagination from '../common/pagination'
-import withSizes from 'react-sizes'
+import { queryParams, undefinedEmptyCheck } from '../common/global';
+import SliderC from '../common/Slider';
+import { connect } from 'react-redux';
+import Cards from '../cards/cards.js';
+import Pagination from '../common/pagination';
+import withSizes from 'react-sizes';
 import { compose } from 'redux';
 
 class Home extends Component {
@@ -264,9 +264,6 @@ class Home extends Component {
                   <a className="clear" onClick={this.clearSlider.bind(this)}>Clear</a>
                 </div>
                 <SliderC step={5} min={0} max={100} value={payRate} onChange={this.onSliderChange} />
-                <div>
-                  <Chkbox value={payRateOptions} onChange={this.onChkBoxChangePayRate} option={payRateOptions} />
-                </div>
               </Row>
               <Row>
                 <div className="sectionText setWidth floatLeft">
