@@ -22,7 +22,7 @@ export const Navigation = () => {
                             <li><a title="Home">HOW IT WORKS</a></li>
                             <li><a title="Browse">BROWSE </a><Icon type="down" /> </li>
                             <li><a title="search">SEARCH</a></li >
-                            <li><a title="myAccount">My Account</a><Icon type="down" /></li >
+                            <li><img src="images/dp.png"/><a title="myAccount">My Account</a><Icon type="down" /></li >
                         </ul >
                 </div>
                 </nav >

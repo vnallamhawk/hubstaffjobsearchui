@@ -33,9 +33,9 @@ export default class Chkbox extends Component {
 
     render() {
         const { option, value } = this.props;
-        return option.map(opt =>
+        return option.map((opt,i) =>
             <div>
-                <Checkbox checked={value.indexOf(opt) !== -1} value={value} onChange={(e) => this.onChange(opt, e)}>{opt}</Checkbox>
+                <Checkbox key={i} checked={value.indexOf(opt) !== -1} value={value} onChange={(e) => this.onChange(opt, e)}>{opt}</Checkbox>
             </div>)
     }
 }

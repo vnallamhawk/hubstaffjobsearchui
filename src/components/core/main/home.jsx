@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Search } from '../common/search'
 import { SelectDropDown } from '../common/select'
+import Spinner from '../common/Spinner';
 import Chkbox from '../common/checkbox';
 import { fetchJobs, topJobs } from '../../../actions/home'
 import Button from '../common/button';
-import { queryParams } from '../common/global'
+import { queryParams,undefinedEmptyCheck } from '../common/global'
 import SliderC from '../common/Slider'
 import { connect } from 'react-redux'
 import Cards from '../cards/cards.js'
 import Pagination from '../common/pagination'
-import Responsive from '../common/Responsive'
 import withSizes from 'react-sizes'
 import {compose} from 'redux';
 
@@ -31,13 +31,13 @@ class Home extends Component {
       },
       currentPage: 1,
       pageSize: 5,
-      total: props.jobs.length
+      jobs: props.jobs
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.jobs !== nextProps.jobs)
-      this.setState({ total: nextProps.jobs.length })
+      this.setState({jobs : nextProps.jobs })
   }
 
   componentDidMount() {
@@ -186,19 +186,24 @@ class Home extends Component {
     const experienceOption = ["Junior", "Mid", "Senior"];
     const payRateOptions = ["Include profile without pay rates"];
     const { jobs, topViewed } = this.props;
-    const { currentPage, pageSize, total } = this.state;
+    const { currentPage, pageSize } = this.state;
     const { skills, jobType, experienceLevel, languages, country, payRate, availability,includePayrate } = this.state.filterParams;
     let cardList = [], topJob = [], mostViewed = [];
-    let upperLimit = currentPage * pageSize < jobs.length ? currentPage * pageSize : jobs.length;
-    let searchResultSpanSize = this.props.width<480? 24 :12;
-    let sideMenuSpanSize = this.props.width<480? 24 :6;
-    if (jobs.length > 0) {
+    let searchResultSpanSize =  this.props.isMobile? 24 :12;
+    let sideMenuSpanSize = this.props.isMobile? 24 :6;
+    if (jobs.fetched===true && jobs.response.length > 0) {
+      console.log("topJobs");
+      let upperLimit = currentPage * pageSize < jobs.response.length ? currentPage * pageSize : jobs.response.length;
       for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
-        cardList.push(<div> <Cards jobs={jobs[i]} hide={false} /> <hr /> </div>)
+        console.log(jobs.response[i]);
+        cardList.push(<div> <Cards jobs={jobs.response[i]} hide={false} /> <hr /> </div>)
       }
     }
     if (topViewed.length > 0) {
+      console.log("topviewed");
       for (let i = 0; i < topViewed.length; i++) {
+        
+        console.log(topViewed[i])
         topJob.push(<div> <Cards jobs={topViewed[i]} hide={true} /> <br/> </div>)
       }
       for (let i = 0; i < topViewed.length; i++) {
@@ -222,8 +227,6 @@ class Home extends Component {
               <div>
                 <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
               </div>
-
-
             </Row>
             <hr />
             <Row>
@@ -303,21 +306,24 @@ class Home extends Component {
 
 
           <Col className="whiteBg" span={searchResultSpanSize}>
-            {jobs.length > 0 &&
+          {jobs.fetching===true &&<div className="Spinner">
+            <Spinner/>
+            </div>}
+            {jobs.fetched===true&&jobs.response.length > 0 &&
               <div className="cardsSection ">
                 <Row>
                   <div className="sectionText">
-                    RESULTS ({jobs.length})
+                    RESULTS ({jobs.response.length})
                   </div>
                 </Row>
                 <Row>
                   {cardList}
                 </Row>
-                < Pagination onChangePage={this.updateCurrentPage} currentPage={currentPage} pageSize={pageSize} total={total} />
+                < Pagination onChangePage={this.updateCurrentPage} currentPage={currentPage} pageSize={pageSize} total={jobs.response.length} />
               </div>
             }
           </Col>
-          <Col span={sideMenuSpanSize} className="padding-25">
+          <Col span={sideMenuSpanSize} className="sideMenu padding-25">
             <div className="whiteBg centerAlign padding-30">
               <img src="images/hubStaff.PNG" />
               <div className="sectionText">
@@ -368,13 +374,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapSizesToProps = ( state) => {
-  return {
-    width : state.width
-  }
-}
-
-
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchJobs: (args) => dispatch(fetchJobs(args)),
@@ -382,8 +381,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const enhance = compose(
-  withSizes(mapSizesToProps),
-  connect(mapStateToProps, mapDispatchToProps))
+export default connect(mapStateToProps,mapDispatchToProps)(Home)
+// const enhance = compose(
+//   withSizes(mapSizesToProps),
+//   connect(mapStateToProps, mapDispatchToProps))
 
-export default enhance(Home)
+// export default enhance(Home)

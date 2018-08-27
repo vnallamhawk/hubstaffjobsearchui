@@ -6,7 +6,7 @@ const Footer = (props) => {
     return (
         <div className="footer">
             <Col span={props.isMobile? 24 : 6 } >
-                <img src="images/logoFooter.png" width="180" />
+                <img className="logoFooter" src="images/logoFooter.png" width="180" />
             </Col>
             <Col span={props.isMobile? 12 : 4 } >
                 <p className="footerText">

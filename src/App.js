@@ -17,7 +17,7 @@ class App extends Component {
       {/* <SideDrawer/>
       <Backdrop/> */}
       <div className="container">
-        <Home />
+        <Home isMobile={this.props.isMobile} />
       </div>
       <Footer isMobile={this.props.isMobile}/>
     </div>)
