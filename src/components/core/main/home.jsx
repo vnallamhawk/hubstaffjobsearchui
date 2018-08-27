@@ -10,6 +10,9 @@ import SliderC from '../common/Slider'
 import { connect } from 'react-redux'
 import Cards from '../cards/cards.js'
 import Pagination from '../common/pagination'
+import Responsive from '../common/Responsive'
+import withSizes from 'react-sizes'
+import {compose} from 'redux';
 
 class Home extends Component {
   constructor(props) {
@@ -187,6 +190,8 @@ class Home extends Component {
     const { skills, jobType, experienceLevel, languages, country, payRate, availability,includePayrate } = this.state.filterParams;
     let cardList = [], topJob = [], mostViewed = [];
     let upperLimit = currentPage * pageSize < jobs.length ? currentPage * pageSize : jobs.length;
+    let searchResultSpanSize = this.props.width<480? 24 :12;
+    let sideMenuSpanSize = this.props.width<480? 24 :6;
     if (jobs.length > 0) {
       for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
         cardList.push(<div> <Cards jobs={jobs[i]} hide={false} /> <hr /> </div>)
@@ -208,6 +213,7 @@ class Home extends Component {
           <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
         </div>
         <Row>
+          {this.props.isMobile!==true&&
           <Col className="section1" span={6}>
             <Row>
               <div className="filters">
@@ -293,9 +299,10 @@ class Home extends Component {
               <SelectDropDown value={languages} mode="tags" placeHolder="Enter Language" option={[]} defaultValue={[]} handleChange={this.handleChangeLanguages} />
             </Row>
           </Col>
+          }
 
 
-          <Col className="whiteBg" span={12}>
+          <Col className="whiteBg" span={searchResultSpanSize}>
             {jobs.length > 0 &&
               <div className="cardsSection ">
                 <Row>
@@ -310,7 +317,7 @@ class Home extends Component {
               </div>
             }
           </Col>
-          <Col span={6} className="padding-25">
+          <Col span={sideMenuSpanSize} className="padding-25">
             <div className="whiteBg centerAlign padding-30">
               <img src="images/hubStaff.PNG" />
               <div className="sectionText">
@@ -347,6 +354,7 @@ class Home extends Component {
 
           </Col>
         </Row>
+        
       </div>
 
     );
@@ -357,8 +365,15 @@ const mapStateToProps = (state) => {
   return {
     jobs: state.jobs,
     topViewed: state.topJobs
+    }
+}
+
+const mapSizesToProps = ( state) => {
+  return {
+    width : state.width
   }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -367,4 +382,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+const enhance = compose(
+  withSizes(mapSizesToProps),
+  connect(mapStateToProps, mapDispatchToProps))
+
+export default enhance(Home)

@@ -8,7 +8,7 @@ export const Navigation = () => {
             <div className="toolbar">
             <nav className="toolbar_navigation">
             <div>
-                    <DrawerToggleButton/>
+                    {/* <DrawerToggleButton/> */}
                 </div>
 
                 <div className="logo">

@@ -1,23 +1,24 @@
 import React from 'react';
 import { Row, Col,Icon } from 'antd';
-const Footer = () => {
+const Footer = (props) => {
+    console.log(props);
+    console.log(props.isMobile);
     return (
         <div className="footer">
-            <Col span={6} >
+            <Col span={props.isMobile? 24 : 6 } >
                 <img src="images/logoFooter.png" width="180" />
-
             </Col>
-            <Col span={4} >
+            <Col span={props.isMobile? 12 : 4 } >
                 <p className="footerText">
                     TALENT
-            </p>
+                </p>
                 <ul>
                     <li>How it works </li>
                     <li>Why we're free </li>
                     <li>Agencies </li>
                 </ul>
             </Col>
-            <Col span={4} >
+            <Col span={props.isMobile? 12 : 4 } >
                 <p className="footerText">
                     HUBSTAFF
                 </p>
@@ -29,7 +30,7 @@ const Footer = () => {
                 </ul>
 
             </Col>
-            <Col span={4} >
+            <Col span={props.isMobile? 12 : 4 } >
                 <p className="footerText">
                     SUPPORT
                 </p>
@@ -42,11 +43,11 @@ const Footer = () => {
                     <li>Privacy </li>
                 </ul>
             </Col>
-            <Col span={6} >
+            <Col span={props.isMobile? 12 : 6 } >
                 <p className="footerText">
                     SOCIAL
                 </p>
-                <Row>
+                <Row className="socialRow">
                     <Col span={4} >
                         <Icon type="twitter" className="social"/>
                     </Col>

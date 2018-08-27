@@ -46,9 +46,9 @@ The below component are used in this application
 
 ## slider
 
-| Name  		|	 Type 		|Description   					   		|	
-| ------------- | ------------- |-------------------------------------- |
-| value			| Array		    |Optional.The start and end value   	|
+| Name  		|	 Type 		|Description   					   				|	
+| ------------- | ------------- |--------------------------------------------- 	|
+| value			| Array		    |Optional.The start and end value of slider   	|
 
 ## select
 | Name  		|	 Type 		|Description   					   							|	

@@ -1,5 +1,9 @@
 @import '~antd/dist/antd.css';
 
+html{
+height:100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -56,18 +60,34 @@ body{
   color: #B6B6B6;
  }
 
- @media screen and (min-width : 600px) {
-  .header-container {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .logo {
-    margin-left: 2.3em;
-  }
-  nav {
-    align-self: center;
-    margin: 0 0.8em 0 0;
-  }
+.socialRow{
+  padding:0 !important;
+}
+
+ @media all and (max-device-width: 640px){
+   .navbar_items{
+     display:none;
+   }
+   .searchInput{
+     width:100% !important;
+   }
+   .btnSearch{
+     width:100% !important;
+   }
+   .section1{
+     display:none !important;
+   }
+   .padding-25{
+     padding:0
+   }
+   .footer{
+     margin:0 !important;
+     min-height:500px !important;
+   }
+   .logoFooter{
+    margin-top: -25px !important;
+    margin-left: -10px !important;
+   }
  }
 
  .container{
