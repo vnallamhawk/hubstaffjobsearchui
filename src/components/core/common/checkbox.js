@@ -34,7 +34,7 @@ export default class Chkbox extends Component {
     render() {
         const { option, value } = this.props;
         return option.map((opt,i) =>
-            <div>
+            <div key={`chkdiv${i}`}>
                 <Checkbox key={i} checked={value.indexOf(opt) !== -1} value={value} onChange={(e) => this.onChange(opt, e)}>{opt}</Checkbox>
             </div>)
     }
