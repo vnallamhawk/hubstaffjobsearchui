@@ -7,10 +7,6 @@ export const Navigation = () => {
         <div>
             <div className="toolbar">
             <nav className="toolbar_navigation">
-            <div>
-                    {/* <DrawerToggleButton/> */}
-                </div>
-
                 <div className="logo">
                     <a href="index.html" title="Hubstaff Talent">
                         <img src="images/logo.png" width="180" />

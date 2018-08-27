@@ -47,7 +47,7 @@ The below component are used in this application
 ## slider
 
 | Name  		|	 Type 		|Description   					   				|	
-| ------------- | ------------- |--------------------------------------------- 	|
+| ------------- | ------------- |--------------------------------------------- 		|
 | value			| Array		    |Optional.The start and end value of slider   	|
 
 ## select
@@ -59,8 +59,7 @@ The below component are used in this application
 | mode			| String	    |Optional.The mode of the dropdown (Single/Multi)			|
 
 ## Future Enhancements
-	- Including a spinner while loading for search results.
 	- Including options for profiles with search rates. 
-	- Including support for mobile devices.
+	- Including slider for filters in smaller devices.
 
 

@@ -8,8 +8,7 @@ import 'antd/es/cascader/style/index.css';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 import { Provider } from 'react-redux';
-import reducers from './reducers'
-import StartUp from './components/StartUp'
+import reducers from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 const createStoreWithMiddleware = applyMiddleware(thunk, promise())(createStore);
