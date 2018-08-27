@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Search } from '../common/search';
 import { SelectDropDown } from '../common/select';
-import Spinner from '../common/spinner';
+import Loader from '../common/loader';
 import Chkbox from '../common/checkbox';
 import { fetchJobs, topJobs } from '../../../actions/home';
 import Button from '../common/button';
@@ -296,7 +296,7 @@ class Home extends Component {
           }
           <Col className="whiteBg" span={searchResultSpanSize}>
             {jobs.fetching === true && <div className="spinner">
-              <Spinner />
+              <Loader />
             </div>}
             {jobs.fetched === true && jobs.response.length > 0 &&
               <div className="cardsSection ">
