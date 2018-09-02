@@ -326,8 +326,8 @@ font-size: 20px;
   margin:auto;
   text-align: center;
   background: white;
-  /* border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 30px 50px;
-  margin: 20px 0; */
+}
+
+.ant-pagination{
+  text-align:center;
 }
