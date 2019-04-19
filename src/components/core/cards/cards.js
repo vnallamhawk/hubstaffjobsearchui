@@ -1,8 +1,6 @@
 import React from 'react';
-import Skill from './skill';
 import List from './list';
 import Type from './type';
-import { Icon } from 'antd';
 
 const cards = ({ jobs, hide }) => {
     return (

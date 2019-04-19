@@ -1,6 +1,5 @@
 import React from 'react';
 import { Icon } from 'antd';
-import DrawerToggleButton from './SideDrawer/DrawerToggle'
 
 export const Navigation = () => {
     return (

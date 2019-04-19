@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col,Icon } from 'antd';
 const Footer = (props) => {
-    console.log(props);
-    console.log(props.isMobile);
     return (
         <div className="footer">
             <Col span={props.isMobile? 24 : 6 } >

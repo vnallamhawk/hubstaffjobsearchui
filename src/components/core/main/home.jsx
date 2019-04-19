@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import { Row, Col } from 'antd';
 import { Search } from '../common/search';
 import { SelectDropDown } from '../common/select';
@@ -6,13 +6,11 @@ import Loader from '../common/loader';
 import Chkbox from '../common/checkbox';
 import { fetchJobs, topJobs } from '../../../actions/home';
 import Button from '../common/button';
-import { queryParams, undefinedEmptyCheck } from '../common/global';
+import { queryParams, undefinedEmptyCheck } from '../common/utils';
 import SliderC from '../common/Slider';
 import { connect } from 'react-redux';
 import Cards from '../cards/cards.js';
 import Pagination from '../common/pagination';
-import withSizes from 'react-sizes';
-import { compose } from 'redux';
 
 class Home extends Component {
   constructor(props) {
@@ -46,13 +44,20 @@ class Home extends Component {
 
   btnSearch = () => {
     this.props.fetchJobs(queryParams(this.state.filterParams));
-    this.setState({ currentPage: 1 });
+    this.setState({ currentPage: 1 }); 
   }
 
   onChange = (event) => {
     const filterParams = Object.assign({}, this.state.filterParams);
     filterParams["keywords"] = event.target.value;
     this.setState({ filterParams });
+  }
+
+  onKeyPress=(event)=>{
+    if (event.key == 'Enter') {
+      this.props.fetchJobs(queryParams(this.state.filterParams));
+      this.setState({ currentPage: 1 });
+    }
   }
 
   onChkBoxChange = (value) => {
@@ -182,19 +187,18 @@ class Home extends Component {
   }
 
   render() {
-    const options = ["Hourly", "Part-time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
+    const options = ["Hourly", "Part-Time(20 hrs/wk)", "Full-Time(40 hrs/wk)"];
     const experienceOption = ["Junior", "Mid", "Senior"];
-    const payRateOptions = ["Include profile without pay rates"];
     const { jobs, topViewed } = this.props;
     const { currentPage, pageSize } = this.state;
-    const { skills, jobType, experienceLevel, languages, country, payRate, availability, includePayrate } = this.state.filterParams;
+    const { skills, jobType, experienceLevel, languages, country, payRate, availability } = this.state.filterParams;
     let cardList = [], topJob = [], mostViewed = [];
     let searchResultSpanSize = this.props.isMobile ? 24 : 12;
     let sideMenuSpanSize = this.props.isMobile ? 24 : 6;
     if (jobs.fetched === true && jobs.response.length > 0) {
       let upperLimit = currentPage * pageSize < jobs.response.length ? currentPage * pageSize : jobs.response.length;
       for (let i = currentPage * pageSize - pageSize; i < upperLimit; i++) {
-        cardList.push(<div> <Cards jobs={jobs.response[i]} hide={false} /> <hr /> </div>)
+        cardList.push(<div key={i}> <Cards jobs={jobs.response[i]} hide={false} /> <hr /> </div>)
       }
     }
     if (topViewed.length > 0) {
@@ -208,7 +212,7 @@ class Home extends Component {
     return (
       <div>
         <div className="searchSection">
-          <Search name="keyword" onChange={this.onChange} placeHolder="Search by keywords(PHP,.NET,graphic design,etc.)" />
+          <Search name="keyword" onKeyPress={this.onKeyPress} onChange={this.onChange} placeHolder="Search by keywords(PHP,.NET,graphic design,etc.)" />
           <Button className="btnSearch" type="submit" btnSearch={this.btnSearch} btnSearchTxt="Search" />
         </div>
         <Row>
@@ -217,7 +221,7 @@ class Home extends Component {
               <Row>
                 <div className="filters">
                   FILTERS
-        </div>
+                </div>
                 <div>
                   <a className="clear" onClick={this.clearAllFilters.bind(this)}>Clear all filters</a>
                 </div>
