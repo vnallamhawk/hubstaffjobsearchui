@@ -5,7 +5,7 @@ const Type = ({jobType}) =>{
                 case jobType==='Full-Time(40 hrs/wk)':
                     return <span className="fullTime" >{jobType} </span> 
                     break;
-                case jobType==='Part-time(20 hrs/wk)':
+                case jobType==='Part-Time(20 hrs/wk)':
                     return <span className="partTime" > {jobType} </span> 
                     break;
                 case jobType==='Hourly':
